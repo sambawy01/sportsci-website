@@ -35,7 +35,7 @@ export default function Navbar() {
             <img
               src="/sportsci-logo.png"
               alt="SportSci.ai"
-              className="h-28 sm:h-32 w-auto object-contain"
+              className="h-20 sm:h-24 w-auto object-contain"
             />
           </a>
 
