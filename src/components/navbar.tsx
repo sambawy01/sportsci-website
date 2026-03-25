@@ -32,17 +32,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center group">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="h-16 sm:h-20 w-auto object-contain"
-              style={{ mixBlendMode: "screen" }}
-            >
-              <source src="/logo-transparent.webm" type="video/webm" />
-              <source src="/logo-cropped.mp4" type="video/mp4" />
-            </video>
+            <img
+              src="/sportsci-logo.png"
+              alt="SportSci.ai"
+              className="h-14 sm:h-16 w-auto object-contain"
+            />
           </a>
 
           {/* Desktop nav */}
