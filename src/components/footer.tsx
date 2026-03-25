@@ -46,13 +46,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div className="sm:col-span-2">
-            <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center">
-                <Zap className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-lg font-bold text-text-primary">
-                SportSci<span className="text-neon-cyan">.ai</span>
-              </span>
+            <a href="#" className="flex items-center mb-4">
+              <img
+                src="/sportsci-logo.png"
+                alt="SportSci.ai"
+                className="h-10 w-auto object-contain"
+              />
             </a>
             <p className="text-sm text-text-secondary max-w-xs">
               AI Performance Analysis &amp; Squad Management

@@ -31,13 +31,18 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center group-hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-shadow duration-300">
-              <Zap className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-lg font-bold text-text-primary">
-              SportSci<span className="text-neon-cyan">.ai</span>
-            </span>
+          <a href="#" className="flex items-center group">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="h-16 sm:h-20 w-auto object-contain"
+              style={{ mixBlendMode: "screen" }}
+            >
+              <source src="/logo-transparent.webm" type="video/webm" />
+              <source src="/logo-cropped.mp4" type="video/mp4" />
+            </video>
           </a>
 
           {/* Desktop nav */}

@@ -1,191 +1,200 @@
 "use client";
 
+import { useState } from "react";
 import {
-  ClipboardList,
-  HeartPulse,
-  Activity,
-  Target,
+  Brain,
   Shield,
   TrendingUp,
-  CalendarDays,
-  Radio,
-  BarChart3,
-  Users,
-  Gauge,
+  Target,
+  HeartPulse,
+  Zap,
+  Eye,
+  FileText,
+  MessageSquare,
+  Sparkles,
+  ArrowRight,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
-interface FeatureItemProps {
+interface ShowcaseFeature {
   icon: ReactNode;
-  label: string;
+  title: string;
+  hook: string;
+  description: string;
   color: string;
-  subBadge?: string;
+  metric?: string;
+  metricLabel?: string;
 }
 
-function FeatureItem({ icon, label, color, subBadge }: FeatureItemProps) {
+const features: ShowcaseFeature[] = [
+  {
+    icon: <Eye className="w-5 h-5" />,
+    title: "Opponent Intelligence",
+    hook: "Know them before they know themselves",
+    description: "AI scans the web in real time — pulling match results, squad rosters, formations, and tactical patterns for any opponent. Walk into the dressing room with a 10-page dossier your rival doesn't know exists.",
+    color: "#00d4ff",
+    metric: "25+",
+    metricLabel: "web sources scanned per report",
+  },
+  {
+    icon: <Shield className="w-5 h-5" />,
+    title: "Injury Prediction",
+    hook: "The injury that never happened",
+    description: "Multi-factor risk engine combines workload ratios, recovery trends, training intensity, and historical patterns to flag danger 48 hours before symptoms appear. Your best player stays on the pitch, not in rehab.",
+    color: "#ff3355",
+    metric: "48hrs",
+    metricLabel: "early warning before injury risk peaks",
+  },
+  {
+    icon: <Brain className="w-5 h-5" />,
+    title: "AI Session Design",
+    hook: "Training plans that think",
+    description: "Tell the AI your goal, your squad's current load, and how many days until the match. It designs a session that pushes the right players, protects the tired ones, and peaks fitness exactly when you need it.",
+    color: "#a855f7",
+  },
+  {
+    icon: <HeartPulse className="w-5 h-5" />,
+    title: "Match Readiness",
+    hook: "Never guess your starting XI again",
+    description: "Every player gets a readiness score 0-100 before every game. Based on load trend, recovery quality, days since last intensity, and recent performance. The AI recommends your strongest XI for this specific matchup.",
+    color: "#00ff88",
+    metric: "0-100",
+    metricLabel: "per-player readiness score",
+  },
+  {
+    icon: <TrendingUp className="w-5 h-5" />,
+    title: "Development Arc",
+    hook: "See three months in thirty seconds",
+    description: "Every player's performance trajectory visualized over time. Speed, endurance, work rate, recovery — all trending. AI narrates the story: where they started, where they are, and where they're heading.",
+    color: "#06b6d4",
+  },
+  {
+    icon: <Target className="w-5 h-5" />,
+    title: "Tactical Analysis",
+    hook: "Draw it. AI critiques it.",
+    description: "Interactive pitch board where you build formations and the AI tells you what's wrong — exposed zones, mismatched players, better alternatives. Like having a tactical advisor who's watched 10,000 matches.",
+    color: "#ff6b35",
+  },
+  {
+    icon: <FileText className="w-5 h-5" />,
+    title: "One-Click Reports",
+    hook: "Monthly reports that write themselves",
+    description: "Monthly team performance, weekly summaries, medical reports, and parent updates — all AI-generated from real data. Exported as branded PDFs. Shared via WhatsApp or email in one tap.",
+    color: "#a78bfa",
+    metric: "4",
+    metricLabel: "report types, zero manual writing",
+  },
+  {
+    icon: <MessageSquare className="w-5 h-5" />,
+    title: "Ask Anything",
+    hook: "Your squad data has a voice",
+    description: "'Who should rest tomorrow?' 'What's Ahmed's sprint trend?' 'Design a pressing drill for Wednesday.' Ask Coach M8 anything and get answers backed by every session, every metric, every player.",
+    color: "#ffbb00",
+  },
+];
+
+function FeatureCard({ feature, index }: { feature: ShowcaseFeature; index: number }) {
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <div className="glass group flex items-start gap-4 p-5 transition-all duration-300 hover:scale-[1.02]">
+    <div
+      className="glass relative overflow-hidden p-6 transition-all duration-300 hover:scale-[1.02] group"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        borderColor: hovered ? `${feature.color}30` : undefined,
+        boxShadow: hovered ? `0 0 30px ${feature.color}10` : undefined,
+      }}
+    >
+      {/* Top accent line */}
       <div
-        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+        className="absolute top-0 left-0 right-0 h-[2px] transition-all duration-300"
         style={{
-          background: `linear-gradient(135deg, ${color}15, ${color}08)`,
-          border: `1px solid ${color}20`,
+          background: `linear-gradient(90deg, transparent, ${feature.color}, transparent)`,
+          opacity: hovered ? 1 : 0.3,
         }}
-      >
-        {icon}
-      </div>
-      <div>
-        <h4 className="text-sm font-semibold text-text-primary">{label}</h4>
-        {subBadge && (
-          <span
-            className="inline-block mt-1 text-[10px] font-mono px-2 py-0.5 rounded-full border border-border text-text-secondary"
-            style={{ fontFamily: "var(--font-family-jetbrains)" }}
-          >
-            {subBadge}
-          </span>
+      />
+
+      {/* Icon + metric */}
+      <div className="flex items-start justify-between mb-4">
+        <div
+          className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300"
+          style={{
+            background: `${feature.color}12`,
+            boxShadow: hovered ? `0 0 20px ${feature.color}20` : undefined,
+            color: feature.color,
+          }}
+        >
+          {feature.icon}
+        </div>
+        {feature.metric && (
+          <div className="text-right">
+            <span className="font-mono text-lg font-bold" style={{ color: feature.color }}>
+              {feature.metric}
+            </span>
+            <p className="text-[9px] text-white/30 max-w-[100px]">{feature.metricLabel}</p>
+          </div>
         )}
       </div>
-    </div>
-  );
-}
 
-function DashboardMockup() {
-  return (
-    <div className="glass overflow-hidden">
-      {/* Browser chrome */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
-        <div className="flex gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-neon-red/60" />
-          <div className="w-3 h-3 rounded-full bg-neon-orange/60" />
-          <div className="w-3 h-3 rounded-full bg-neon-green/60" />
-        </div>
-        <div className="flex-1 ml-4">
-          <div className="max-w-sm mx-auto h-6 rounded-md bg-white/[0.03] border border-border flex items-center px-3">
-            <span className="text-[10px] text-text-secondary/50 font-mono" style={{ fontFamily: "var(--font-family-jetbrains)" }}>
-              app.sportsci.ai/dashboard
-            </span>
-          </div>
-        </div>
-      </div>
+      {/* Title */}
+      <h3 className="text-base font-bold text-white mb-1">{feature.title}</h3>
 
-      {/* Dashboard content */}
-      <div className="flex min-h-[350px] sm:min-h-[420px]">
-        {/* Sidebar */}
-        <div className="hidden sm:flex flex-col w-48 border-r border-border p-4 gap-3">
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-neon-purple/10 border border-neon-purple/20">
-            <Gauge className="w-4 h-4 text-neon-purple" />
-            <span className="text-xs text-neon-purple font-medium">Dashboard</span>
-          </div>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-text-secondary/50 hover:bg-white/[0.02]">
-            <Users className="w-4 h-4" />
-            <span className="text-xs">Squad</span>
-          </div>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-text-secondary/50 hover:bg-white/[0.02]">
-            <Activity className="w-4 h-4" />
-            <span className="text-xs">Sessions</span>
-          </div>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-text-secondary/50 hover:bg-white/[0.02]">
-            <BarChart3 className="w-4 h-4" />
-            <span className="text-xs">Reports</span>
-          </div>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-text-secondary/50 hover:bg-white/[0.02]">
-            <Radio className="w-4 h-4" />
-            <span className="text-xs">Live HR</span>
-          </div>
-        </div>
+      {/* Hook — the punchy line */}
+      <p className="text-sm font-medium mb-3" style={{ color: `${feature.color}cc` }}>
+        {feature.hook}
+      </p>
 
-        {/* Main area */}
-        <div className="flex-1 p-4 sm:p-6 space-y-4">
-          {/* Top stat cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { label: "Squad Size", value: "22", color: "#a855f7" },
-              { label: "Avg Readiness", value: "87%", color: "#00ff88" },
-              { label: "Injury Risk", value: "2", color: "#ff3355" },
-              { label: "Sessions/Week", value: "5", color: "#00d4ff" },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-xl p-3 bg-white/[0.02] border border-border"
-              >
-                <p className="text-[10px] text-text-secondary mb-1">{stat.label}</p>
-                <p
-                  className="text-xl font-bold"
-                  style={{ color: stat.color, fontFamily: "var(--font-family-jetbrains)" }}
-                >
-                  {stat.value}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Chart placeholder */}
-          <div className="rounded-xl p-4 bg-white/[0.02] border border-border flex-1 min-h-[140px] sm:min-h-[200px]">
-            <p className="text-[10px] text-text-secondary mb-4">Weekly Load Overview</p>
-            <div className="flex items-end gap-2 h-24 sm:h-36 px-2">
-              {[65, 85, 55, 90, 70, 80, 45].map((h, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                  <div
-                    className="w-full rounded-t-md transition-all duration-300"
-                    style={{
-                      height: `${h}%`,
-                      background: `linear-gradient(to top, rgba(168,85,247,0.3), rgba(0,212,255,0.3))`,
-                      border: "1px solid rgba(168,85,247,0.2)",
-                    }}
-                  />
-                  <span className="text-[8px] text-text-secondary/40" style={{ fontFamily: "var(--font-family-jetbrains)" }}>
-                    {["M", "T", "W", "T", "F", "S", "S"][i]}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Description */}
+      <p className="text-xs text-white/40 leading-relaxed">{feature.description}</p>
     </div>
   );
 }
 
 export default function CoachM8Showcase() {
-  const features: FeatureItemProps[] = [
-    { icon: <ClipboardList className="w-5 h-5" style={{ color: "#a855f7" }} />, label: "AI Session Design", color: "#a855f7" },
-    { icon: <HeartPulse className="w-5 h-5" style={{ color: "#ff3355" }} />, label: "Injury Prediction", color: "#ff3355" },
-    { icon: <Activity className="w-5 h-5" style={{ color: "#00ff88" }} />, label: "Match Readiness", color: "#00ff88" },
-    { icon: <Target className="w-5 h-5" style={{ color: "#00d4ff" }} />, label: "Opponent Scouting", color: "#00d4ff", subBadge: "Deep Web Research" },
-    { icon: <Shield className="w-5 h-5" style={{ color: "#00d4ff" }} />, label: "Squad Builder", color: "#00d4ff" },
-    { icon: <TrendingUp className="w-5 h-5" style={{ color: "#00ff88" }} />, label: "Player Progress", color: "#00ff88" },
-    { icon: <CalendarDays className="w-5 h-5" style={{ color: "#a855f7" }} />, label: "Weekly Planner", color: "#a855f7" },
-    { icon: <Radio className="w-5 h-5" style={{ color: "#ff3355" }} />, label: "Live HR Dashboard", color: "#ff3355" },
-  ];
-
   return (
     <section id="features" className="relative py-24 sm:py-32 px-4 sm:px-6">
-      {/* Background accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-neon-purple/5 blur-[150px] pointer-events-none" />
+      {/* Background accents */}
+      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-[#a855f7]/5 blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full bg-[#00d4ff]/5 blur-[120px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-text-primary">
-            Coach M8 — <span className="gradient-text-purple-cyan">AI Performance Analysis</span>
-            <br className="hidden sm:block" />
-            <span className="text-text-primary"> & Squad Management</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#a855f7]/20 bg-[#a855f7]/5 mb-6">
+            <Sparkles className="w-3.5 h-3.5 text-[#a855f7]" />
+            <span className="text-xs text-[#a855f7] font-medium">Powered by Advanced AI</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 text-white">
+            Not Another Dashboard.
+            <br />
+            <span className="gradient-text-purple-cyan">A Coaching Brain.</span>
           </h2>
-          <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Built for The Maker Football Incubator. Ready for every academy.
+          <p className="text-white/50 text-lg max-w-2xl mx-auto leading-relaxed">
+            Coach M8 doesn&apos;t just display numbers. It reads your squad&apos;s data, understands the context, and tells you what to do next — before you even ask.
           </p>
         </div>
 
-        {/* Dashboard mockup */}
-        <div className="mb-16 max-w-5xl mx-auto">
-          <DashboardMockup />
+        {/* Feature grid — 2x4 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          {features.map((feature, i) => (
+            <FeatureCard key={feature.title} feature={feature} index={i} />
+          ))}
         </div>
 
-        {/* Feature grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-          {features.map((feature) => (
-            <FeatureItem key={feature.label} {...feature} />
-          ))}
+        {/* Bottom CTA */}
+        <div className="text-center">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:scale-105 group"
+            style={{
+              background: "linear-gradient(135deg, #a855f7, #00d4ff)",
+              boxShadow: "0 0 30px rgba(168,85,247,0.3)",
+            }}
+          >
+            See It In Action
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
         </div>
       </div>
     </section>

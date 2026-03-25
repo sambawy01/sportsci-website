@@ -18,7 +18,7 @@ export default function Home() {
       <ProductStack />
       <CoachM8Showcase />
       <HowItWorks />
-      <ComingSoon />
+      {/* <ComingSoon /> */}
       <SocialProof />
       <ContactForm />
       <Footer />
