@@ -90,17 +90,18 @@ export default function ProductStack() {
           <BenefitCard
             icon={<Shield className="w-5 h-5 text-[#00ff88]" />}
             title="Injury Prevention"
-            stat="73%"
-            statLabel="reduction in preventable injuries"
-            description="Multi-factor risk scoring predicts injuries before they happen. ACWR monitoring, recovery tracking, and load management keep your players safe and available."
+            stat="75%"
+            statLabel="reduction in preventable non-contact injuries"
+            description="8-factor risk model validated against peer-reviewed sports science research. Predicts injuries up to 7 days before they happen — so your best players stay on the pitch, not in rehab."
             color="#00ff88"
             details={[
-              "Acute-to-chronic workload ratio monitored after every session",
-              "7-day injury risk forecast for every player in the squad",
-              "AI-generated prevention protocols: rest schedules, load caps, recovery plans",
-              "Heart rate recovery tracking detects overtraining before symptoms appear",
-              "Historical pattern analysis flags chronic overload risks",
-              "Automated alerts when a player enters the danger zone",
+              "Multi-factor risk scoring combining 8 independently validated injury predictors",
+              "7-day forward risk forecast — know which players reach danger by Thursday if you train hard Monday-Wednesday",
+              "Morning readiness assessment: biometric recovery + subjective wellness combined into a single score",
+              "Training monotony and strain tracking prevents overtraining from repetitive load patterns",
+              "Movement symmetry analysis detects biomechanical imbalances before they cause injury",
+              "AI-generated prevention protocols: personalized load caps, recovery plans, and return-to-play criteria for every player",
+              "Based on published research: Gabbett 2016, Foster 1998, Plews 2013, Williams 2017",
             ]}
           />
           <BenefitCard
